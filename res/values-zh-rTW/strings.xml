@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">開機衛士</string>
+    <string name="title_section_boot_apps">開機啟動</string>
+    <string name="title_section_mask_ads">廣告推送</string>
+    <string name="action_settings">設置</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="turnoff_all">屏蔽消息中心所有推送通知</string>
+    <string name="list_apps">在通知中心顯示的應用</string>
+    <string name="list_apps_def_name">默認應用</string>
+    <string name="iv_description">應用圖標</string>
+    <string name="settings_safetylegal_activity_loading">正在載入...</string>
+    <string name="On">允許</string>
+    <string name="Off">禁止</string>
+    <string name="Open">打開</string>
+    <string name="Close">關閉</string>
+    <string name="back_tips">個已禁止開機啟動項</string>
+    <string name="none_tips">未髮現開機自啟動項,無需優化</string>
+
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/count_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#dfdedb"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textSize="15dp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/listviewApp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
+
+    <TextView android:id="@+id/tips_none" 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textSize="20dp"
+	android:padding="5dp"
+        android:gravity="center"/>
+
+</LinearLayout>

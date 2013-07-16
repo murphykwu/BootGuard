@@ -1,0 +1,77 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <!-- style for tabs -->
+    <style name="CustomActionBarTabTextStyle" parent="android:style/Widget.ActionBar.TabText">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/actionbar_tab_textcolor</item>
+        <item name="android:textSize">@dimen/actionbar_tab_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:height">@dimen/actionbar_tab_height</item>
+    </style>
+    <style name="CustomActionBarTabStyle" parent="android:style/Widget.ActionBar.TabView">
+        <item name="android:background">@drawable/actionbar_tab</item>
+        <item name="android:height">@dimen/actionbar_tab_height</item>
+        <!-- <item name="android:backgroundSplit">?android:attr/actionModeSplitBackground</item> -->
+    </style>
+    
+    <style name="CustomActionBarTabBarStyle">
+        <item name="android:height">@dimen/actionbar_tab_height</item>
+    </style>
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

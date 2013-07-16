@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">开机卫士</string>
+    <string name="title_section_boot_apps">开机启动</string>
+    <string name="title_section_mask_ads">广告推送</string>
+    <string name="title_section3">Section 3</string>
+    <string name="action_settings">设置</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="turnoff_all">屏蔽所有推送通知          </string>
+    <string name="list_apps">在通知中心显示的应用</string>
+    <string name="list_apps_def_name">默认应用</string>
+    <string name="iv_description">应用图标</string>
+    <string name="settings_safetylegal_activity_loading">正在载入...</string>
+    <string name="On">允许</string>
+    <string name="Off">禁止</string>
+    <string name="Open">打开</string>
+    <string name="Close">关闭</string>
+    <string name="back_tips">个已禁止开机启动项</string>
+    <string name="none_tips">未发现开机自启动项,无需优化</string>
+
+</resources>

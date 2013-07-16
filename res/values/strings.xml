@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">KonkaBootGuard</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section_boot_apps">Boot Apps</string>
+    <string name="title_section_mask_ads">Mask Ads</string>
+    <string name="title_section3">Section 3</string>
+    <string name="turnoff_all">Close all Notifications</string>
+    <string name="list_apps">Applications shown in notification center</string>
+    <string name="list_apps_def_name">Default application</string>
+    <string name="iv_description">The image of the application!</string>
+    <string name="settings_safetylegal_activity_loading">Loading...</string>
+    <string name="On">Allow</string>
+    <string name="Off">Forbit</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+    <string name="back_tips">  apps have been banned boot when mobilephone starts.</string>
+    <string name="none_tips">Not boot from the startup items, without optimization.</string>
+
+</resources>
