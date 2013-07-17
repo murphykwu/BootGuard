@@ -1,27 +1,17 @@
 package com.android.manage.appboot.switchnotification;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.android.manage.appboot.R;
 
-import android.app.INotificationManager;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.os.RemoteException;
-import android.os.ServiceManager;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,26 +21,49 @@ public class AppsListAdapter extends BaseAdapter {
 	private LayoutInflater mLayoutInflater;
 	private List<AppInfo> mData;
 	private ViewHolder viewHolder;
-//	private Handler uiHandler;
-	//存放数据改变过的位置，并且记录起来，在列表滑动的时候进行修改
-	public int[] mChangePosition;
-	public static final int THE_POSITION_CHANGED = 8;	
+	public static final int THE_POSITION_CHANGED = 8;
+	private int mCheckedCounts = 0;//记录消息推送打开的应用个数
+	private CallBack mCb;
 	
-	public AppsListAdapter(Context context, List<AppInfo> data)
+	public AppsListAdapter(Context context, List<AppInfo> data, CallBack cb)
 	{
 		mContext = context;
 		mData = data;
-//		uiHandler = handler;
+		mCb = cb;
 		mLayoutInflater = LayoutInflater.from(context);
-		//初始化记录某项是否点击的数组，如果点击过后就置为1，在重画的时候就会重新获取改变后的值而不是使用缓存值。
-		mChangePosition = new int[mData.size()];
+		//初始化当前系统允许应用发送通知的个数
+		mCheckedCounts = 0;
 		for(int i = 0; i < mData.size(); i ++)
 		{
 //			Log.i(ManagerActivity.TAGS, "init mChangePosition");
-			mChangePosition[i] = 0;
+			if(mData.get(i).appCanNotification)
+			{
+				mCheckedCounts ++;
+			}
 		}
+		//初始化的时候，当所有的应用都被选中，那么设置mSwitchAll的状态。
+		if(mCheckedCounts == mData.size())
+		{
+			Log.i(SwitchNotificationFragment.TAG, "size is full");
+			mCb.updateSwitchAllButton(false);
+		}else if(mCheckedCounts == 0)
+		{
+			Log.i(SwitchNotificationFragment.TAG, "size is 0");
+			mCb.updateSwitchAllButton(true);
+		}
+		Log.i(SwitchNotificationFragment.TAG, "当前系统中允许通知的应用个数： mCheckedCounts = " + mCheckedCounts
+				+ ", mData.size = " + mData.size());
+	}
+
+	public int getCheckedCount()
+	{
+		return mCheckedCounts;
 	}
 	
+	public void setCheckedCount(int counts)
+	{
+		mCheckedCounts = counts;
+	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -72,18 +85,6 @@ public class AppsListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		//如果是有改变的行，那么就不使用缓存数据，直接重新赋值
-//		if(mChangePosition[position] == 8)
-//		{
-//			Log.i(ManagerActivity.TAGS, "值有改变的行mChangePosition[" + position + "]");
-//			if(convertView != null)
-//			{
-//				Log.i(ManagerActivity.TAGS, "视图不为空，设置其为空 position = " + position);
-//			}
-//			convertView = null;
-//			//需要重置标志位。置标志位是为了更新数据源，当更新完之后，状态再次改变就再次更新。所以需要重置，提高效率
-//			mChangePosition[position] = 0;
-//		}
 		viewHolder = null;
 		if(convertView == null)
 		{
@@ -92,7 +93,6 @@ public class AppsListAdapter extends BaseAdapter {
 			viewHolder.iv_app = (ImageView)convertView.findViewById(R.id.iv_app_icon);
 			viewHolder.tv_app = (TextView)convertView.findViewById(R.id.tv_app_name);
 			viewHolder.s_change = (Switch)convertView.findViewById(R.id.auto_switch);
-//			viewHolder.sbtn_app = (SwitchButton)convertView.findViewById(R.id.sb_switch);
 			convertView.setTag(viewHolder);
 		}else
 		{
@@ -120,18 +120,35 @@ public class AppsListAdapter extends BaseAdapter {
 	class ListButtonOnClickListener implements OnClickListener
 	{
 		int mPosition;
-		private INotificationManager nm;
+//		private INotificationManager nm;
 		
 		public ListButtonOnClickListener(int pos) {
 			// TODO Auto-generated constructor stub
 			mPosition = pos;
 		}
+		
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-//			SwitchButton sBtn = (SwitchButton)v;
-//			mData.get(mPosition).appCanNotification = sBtn.isChecked();
 			Switch s_ListItem = (Switch)v;
+			//如果应用被选中，那么在此基础上加一，否则减一
+			if(s_ListItem.isChecked())
+			{
+				mCheckedCounts ++;
+				Log.i(SwitchNotificationFragment.TAG, "++ mCheckedCounts = " + mCheckedCounts);
+			}else
+			{
+				mCheckedCounts --;
+				Log.i(SwitchNotificationFragment.TAG, "-- mCheckedCounts = " + mCheckedCounts);
+			}
+			if(mCheckedCounts == mData.size())
+			{
+				Log.i(SwitchNotificationFragment.TAG, "onClick mCheckedCounts = " + mCheckedCounts);
+				mCb.updateSwitchAllButton(false);
+			}else if(mCheckedCounts == 0)
+			{
+				mCb.updateSwitchAllButton(true);
+			}
 			mData.get(mPosition).appCanNotification = s_ListItem.isChecked();
 			AppsListAdapter.this.notifyDataSetChanged();
 //			Toast.makeText(mContext, "position " + mPosition
@@ -145,6 +162,5 @@ public class AppsListAdapter extends BaseAdapter {
 		ImageView iv_app;
 		TextView  tv_app;
 		Switch s_change;
-//		SwitchButton sbtn_app;
 	}
 }

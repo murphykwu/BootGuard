@@ -11,19 +11,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * 
+ * 本应由比较繁琐和可以优化的点：当所有的item被选中时或未被选中，修改最上面的switch开关。
+ * 还有初始化程序的时候，需要恢复最上面的switch开关。也就是说退出程序的时候需要恢复上一次退出的状态
+ * 同时状态的回复不能跟switch的监听逻辑冲突。所以本版本实现比较复杂。
  * @author konka
  *
  */
@@ -58,16 +55,11 @@ public class ManagerActivity extends FragmentActivity implements
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//		actionBar.setSplitBackgroundDrawable(this.getResources().getDrawable(android.R.drawable.dialog_holo_dark_frame));
-		//真正改变tab背景的方法
-//		actionBar.setStackedBackgroundDrawable(this.getResources().getDrawable(android.R.drawable.divider_horizontal_bright));
-//		actionBar.setBackgroundDrawable(this.getResources().getDrawable(android.R.drawable.divider_horizontal_bright));
-		//上面设置的颜色是标题栏的bar的背景
 		
 		//获取屏幕密度
-		float scale = this.getResources().getDisplayMetrics().density;
-		int dipValue = (int) (20*scale +0.5f);
-		Log.i(TAG, "---------->onCreate pixel + scale = " + scale + ", dipvalue = " + dipValue);
+//		float scale = this.getResources().getDisplayMetrics().density;
+//		int dipValue = (int) (20*scale +0.5f);
+//		Log.i(TAG, "---------->onCreate pixel + scale = " + scale + ", dipvalue = " + dipValue);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -125,12 +117,12 @@ public class ManagerActivity extends FragmentActivity implements
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
-	
+
 	@Override
-	protected void onPause() {
+	protected void onStop() {
 		// TODO Auto-generated method stub
-		super.onPause();
-		this.finish();
+		super.onStop();
+//		this.finish();
 	}
 
 

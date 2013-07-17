@@ -3,7 +3,6 @@ package com.android.manage.appboot.bootapps;
 import java.util.List;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
@@ -17,8 +16,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.os.RemoteException;
 import android.os.Binder;
-import android.os.IBinder;
-import java.io.IOException;
 
 import com.android.manage.appboot.R;
 
